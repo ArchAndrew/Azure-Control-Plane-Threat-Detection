@@ -138,3 +138,5 @@ Tags are applied to all resources for organization and cost tracking.
 
 Decision:
 Use standardized tags across all resources to improve visibility and governance.
+
+These decisions align with Zero Trust principles, emphasizing identity-based access, reduced attack surface, centralized control, and continuous monitoring.
