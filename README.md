@@ -1,9 +1,7 @@
 # Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations
 AZ-104 aligned secure Azure architecture with Microsoft Sentinel + Copilot-driven investigation workflow.
 
-<img src=https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/diagrams/ZTLZ_Architecture_diagram.png="width:1000px;">
-
-
+<img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/diagrams/ZTLZ_Architecture_diagram.png style="width:1000px;">
 
 ## Network Architecture
 
