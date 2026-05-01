@@ -152,6 +152,6 @@ These patterns are commonly used in enterprise cloud security operations.
 ---
 
 **Built by Arch_Andrew**  
-Cloud Security | DevSecOps | Zero Trust Architecture
+Cloud Security Architect | CISSP | DevSecOps | Zero Trust Architecture
 
-"thee_architect_was_here"
+thee_architect_was_here
