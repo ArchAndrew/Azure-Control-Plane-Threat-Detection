@@ -1,6 +1,15 @@
 # Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations
-AZ-104 aligned secure Azure architecture with Microsoft Sentinel + Copilot-driven investigation workflow.
-This project demonstrates how identity-based attacks (RBAC privilege escalation) can be detected, analyzed, and investigated using Azure-native tooling.
+
+## TL;DR
+
+I built a Zero Trust, identity-centric detection pipeline in Azure that:
+
+- Detects RBAC privilege escalation events in real time
+- Correlates identity, IP, and role assignment activity
+- Uses Microsoft Sentinel for detection and investigation
+- Leverages AI (Copilot) to accelerate security analysis
+
+This project simulates a real-world cloud attack scenario and demonstrates how I design detection systems, not just deploy infrastructure.
 
 ## 🚨 Here's the problem 
 
@@ -13,7 +22,7 @@ A compromised identity with sufficient privileges can:
 
 Traditional monitoring often misses these control-plane changes.
 
-This project simulates and detects:
+This project simulates and detects a realistic cloud privilege escalation attack path:
 > Unauthorized RBAC role assignment (privilege escalation scenario)
 
 ## 🏗️ Architecture Overview
@@ -49,7 +58,17 @@ The environment uses a hub-and-spoke topology:
 
 This design reduces blast radius and enforces segmentation.
 
-## 🔍 Detection Logic
+### Detection Objective
+
+Identify **privilege escalation risk** by detecting successful RBAC role assignments across the Azure control plane.
+
+### Detection Signal
+
+- Operation: roleAssignments/write
+- Status: Success
+- Actor: Caller identity
+- Source: Caller IP address
+- Context: RoleDefinitionId from Properties
 
 The following KQL query was developed and validated to detect RBAC role assignment activity:
 
@@ -69,7 +88,9 @@ What role change occurred
 
 Why it matters:
 
-RBAC changes can indicate privilege escalation or unauthorized access.
+A compromised identity with role assignment permissions can grant itself elevated access without triggering traditional alerts.
+
+This detection surfaces that behavior.
 
 ---
 
@@ -97,13 +118,24 @@ RBAC changes can indicate privilege escalation or unauthorized access.
 
 1. A user performs a role assignment in Azure
 2. The action is logged in Azure Activity Logs
-3. Logs are streamed to Log Analytics via Diagnostic Settings
+3. “Control-plane telemetry is streamed to Log Analytics for centralized detection
 4. Microsoft Sentinel queries detect the event
 5. The event is analyzed for:
    - Caller identity
    - Source IP address
    - Role assigned
-6. AI-assisted analysis explains the security impact
+6. AI-assisted analysis accelerates triage and reduces investigation time
+
+## Operational Insights
+
+During testing, several important behaviors were observed:
+
+- Azure Activity Logs are not immediately available in Log Analytics (ingestion delay ~2–5 minutes)
+- RBAC events generate both "Start" and "Success" states
+- External IP visibility enables detection of non-corporate access
+- Diagnostic settings must be configured at the subscription level for full coverage
+
+These observations reflect real-world SOC challenges in cloud environments.
 
 ### Outcome:
 Full visibility into control-plane RBAC changes and ability to detect potential privilege escalation.
