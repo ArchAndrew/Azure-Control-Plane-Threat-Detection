@@ -179,7 +179,7 @@ Improper or malicious assignments can lead to:
 This inspection bridges detection and investigation, enabling validation of identity, scope, and privilege impact for RBAC changes.
 
 
-### AI-Assisted Analysis (Copilot)
+### 🤖 AI-Assisted Analysis (Microsoft Copilot Insight)
 <img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/AI-Assisted_3.png style="width:500px;">
 
 Microsoft Copilot was used to interpret the RBAC role assignment event and provide a high-level security assessment.
