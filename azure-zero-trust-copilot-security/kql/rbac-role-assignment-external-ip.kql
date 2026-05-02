@@ -1,0 +1,10 @@
+// Detect RBAC role assignments from external IP addresses
+
+AzureActivity
+| where OperationNameValue has "roleAssignments"
+| where ActivityStatusValue == "Success"
+| where not(CallerIpAddress startswith "10.")
+| where not(CallerIpAddress startswith "172.")
+| where not(CallerIpAddress startswith "192.168.")
+| project TimeGenerated, Caller, CallerIpAddress, OperationNameValue, Properties
+| order by TimeGenerated desc
