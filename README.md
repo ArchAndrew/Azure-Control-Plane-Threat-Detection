@@ -9,7 +9,7 @@ I built a Zero Trust, identity-centric detection pipeline in Azure that:
 - Uses Microsoft Sentinel for detection and investigation
 - Leverages AI (Copilot) to accelerate security analysis
 
-This project simulates a real-world cloud attack scenario and demonstrates how I design detection systems, not just deploy infrastructure.
+This project demonstrates how I design detection pipelines for identity-based attack paths in enterprise cloud environments.
 
 ## 🚨 Here's the problem 
 
@@ -249,6 +249,19 @@ This type of detection is critical in real environments to:
 - Support SOC investigations
 
 These patterns are commonly used in enterprise cloud security operations.
+
+## Reproducing the Detection
+
+1. Create RBAC assignment via Azure CLI
+2. Wait for Azure Activity Log ingestion (~2–5 min)
+3. Run KQL query in Sentinel
+4. Expand event for deep inspection
+
+## Limitations
+
+- Detection relies on Activity Log ingestion latency
+- Does not detect failed role assignment attempts
+- Requires proper diagnostic settings at subscription level
 
 ## 🚀 Future Enhancements
 
