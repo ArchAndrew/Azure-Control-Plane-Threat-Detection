@@ -36,7 +36,7 @@ This solution implements a control-plane detection pipeline:
 5. KQL detection identifies suspicious role assignments
 6. AI-assisted analysis (Copilot) explains impact
 
-<img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/diagrams/ZTLZ_Architecture_diagram.png style="width:1000px;">
+<img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/diagrams/ZTLZ_Architecture_diagram.png style="width:1200px;">
 
 
 ## 🔐 Key Security Design Decisions
