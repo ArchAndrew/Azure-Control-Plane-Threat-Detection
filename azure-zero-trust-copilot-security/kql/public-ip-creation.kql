@@ -1,1 +1,7 @@
+// Detect creation of public IPs (potential exposure risk)
 
+AzureActivity
+| where OperationNameValue == "MICROSOFT.NETWORK/PUBLICIPADDRESSES/WRITE"
+| where ActivityStatusValue == "Success"
+| project TimeGenerated, Caller, CallerIpAddress, ResourceGroup, OperationNameValue
+| order by TimeGenerated desc
