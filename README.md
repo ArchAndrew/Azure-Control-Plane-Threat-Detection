@@ -97,22 +97,28 @@ This detection surfaces that behavior.
 # 📸 7. Proof of Execution 
 
 ### RBAC Role Assignment Event Triggered
-![Insert screenshot of Azure CLI role assignment command output here]
+
+<img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/Annotated_role_assignment_write_event2.png style="width:1000px;">
 
 ### Activity Log Event Captured
-![Insert screenshot of Azure Activity Log showing roleAssignments/write event]
+
+<img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/Annotated_Activity%20Log%20Event%20Captured.png style="width:1000px;">
 
 ### Logs Ingested into Log Analytics
-![Insert screenshot of Log Analytics workspace receiving AzureActivity logs]
+
+<img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/Annotated_Activity%20Log%20Event%20Captured%20(2).png style="width:1000px;">
 
 ### KQL Detection Query Results
-![Insert screenshot of successful query results showing role assignment events]
+
+<img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/Annotated_role_assignments_KQL4.png style="width:1000px;">
 
 ### Expanded Event Details (Deep Inspection)
-![Insert screenshot showing Properties, Caller, IP, RoleDefinitionId]
+
+<img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/Annotated_Deep_inspection.png style="width:1000px;">
 
 ### AI-Assisted Analysis (Copilot)
-![Insert screenshot of Copilot explanation of RBAC event]
+<img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/AI-Assisted_3.png style="width:1000px;">
+
 
 ## ⚠️ Security Scenario: Privilege Escalation Detection
 
