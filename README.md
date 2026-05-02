@@ -262,6 +262,7 @@ These patterns are commonly used in enterprise cloud security operations.
 - Detection relies on Activity Log ingestion latency
 - Does not detect failed role assignment attempts
 - Requires proper diagnostic settings at subscription level
+- Focuses on successful role assignments (post-event detection vs prevention)
 
 ## 🚀 Future Enhancements
 
