@@ -1,1 +1,7 @@
+// Detect successful RBAC role assignments (privilege escalation signal)
 
+AzureActivity
+| where OperationNameValue has "roleAssignments"
+| where ActivityStatusValue == "Success"
+| project TimeGenerated, Caller, CallerIpAddress, OperationNameValue, ActivityStatusValue, Properties
+| order by TimeGenerated desc
