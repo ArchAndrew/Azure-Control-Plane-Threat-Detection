@@ -1,4 +1,4 @@
-# Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations
+# Azure Zero-Trust Landing Zone with AI-Assisted Security Operations
 
 ## TL;DR
 
