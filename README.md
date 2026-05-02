@@ -100,27 +100,97 @@ This detection surfaces that behavior.
 
 <img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/Annotated_role_assignment_write_event2.png style="width:1000px;">
 
+This screenshot shows a successful Azure RBAC role assignment performed via Azure CLI.
+The role was assigned at the subscription scope, demonstrating how identity-based access changes can impact the entire environment.
+
+While the assigned role in this lab is Reader (least privilege), the same mechanism can be abused to grant Owner or Contributor, leading to full privilege escalation.
+This event is captured in Azure Activity Logs and forms the basis for detection in Microsoft Sentinel.
+In production environments, this type of event is high-risk because attackers commonly escalate privileges by assigning roles to compromised identities.
+
+⚠️ Note: RoleDefinitionId is shown instead of role name due to raw CLI output. In practice, this maps to the Reader role.
+
 ### Activity Log Event Captured
 
 <img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/Annotated_Activity%20Log%20Event%20Captured.png style="width:1000px;">
 
+This screenshot shows an Azure Activity Log event captured in Log Analytics for a successful RBAC role assignment (`roleAssignments/write`).
+
+The event lifecycle is visible, including both the initiation (`Start`) and completion (`Success`) stages. This confirms that a control-plane permission change was successfully executed.
+
+Key fields highlighted:
+
+- OperationNameValue → identifies the RBAC role assignment action
+- ActivityStatusValue → confirms the outcome (Success)
+- TimeGenerated → shows when the change occurred
+
+This type of event is critical for detecting potential privilege escalation, as attackers may assign elevated roles to gain persistent access.
+
 ### Logs Ingested into Log Analytics
+
+**Querying AzureActivity table (control-plane logs):**
 
 <img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/Annotated_logs_ingested_query.png style="width:1000px;">
 
+**Expanded RBAC event captured in Log Analytics:**
+
 <img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/Annotated_logs_ingested.png style="width:1000px;">
 
+
 ### KQL Detection Query Results
+
+**Detecting RBAC role assignment events (control-plane changes):**
 
 <img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/Annotated_role_assignments_KQL4.png style="width:1000px;">
 
 ### Expanded Event Details (Deep Inspection)
 
+This view shows the **expanded AzureActivity log event**, allowing full inspection of the control-plane operation responsible for the RBAC change.
+
 <img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/Annotated_Deep_inspection.png style="width:1000px;">
+
+- **Caller / Identity**
+  - The authenticated identity that performed the action is visible in the `Claims` and `Caller` fields.
+  - This enables attribution of the RBAC change to a specific user or service principal.
+
+- **Source of Request**
+  - `clientIpAddress` identifies where the request originated from.
+  - Useful for detecting suspicious or non-corporate access patterns.
+
+- **Role Assigned**
+  - The `roleDefinitionId` inside the `Properties` payload identifies the exact RBAC role granted.
+  - This is critical for determining privilege level (e.g., Reader vs Contributor vs Owner).
+
+- **Scope of Access**
+  - The `Authorization` field shows the scope (`subscription`, `resource group`, etc.).
+  - This defines the **blast radius** of the permission change.
+
+- **Operation Performed**
+  - `MICROSOFT.AUTHORIZATION/ROLEASSIGNMENTS/WRITE` indicates a control-plane RBAC modification.
+
+#### Security Relevance
+
+RBAC role assignments are high-impact control-plane actions.  
+Improper or malicious assignments can lead to:
+
+- Privilege escalation  
+- Unauthorized access to sensitive resources  
+- Persistence mechanisms for attackers  
+
+This inspection bridges detection and investigation, enabling validation of identity, scope, and privilege impact for RBAC changes.
+
 
 ### AI-Assisted Analysis (Copilot)
 <img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/AI-Assisted_3.png style="width:500px;">
 
+Microsoft Copilot was used to interpret the RBAC role assignment event and provide a high-level security assessment.
+
+The analysis highlights:
+
+- The importance of monitoring control-plane changes
+- Increased risk when actions originate from external IP addresses
+- The need to validate that access is granted only to authorized identities
+
+This demonstrates how AI can assist analysts by translating raw log data into actionable security insights, improving response time and decision-making.
 
 ## ⚠️ Security Scenario: Privilege Escalation Detection
 
