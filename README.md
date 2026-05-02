@@ -119,7 +119,7 @@ This detection surfaces that behavior.
 <img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/Annotated_Deep_inspection.png style="width:1000px;">
 
 ### AI-Assisted Analysis (Copilot)
-<img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/AI-Assisted_3.png style="width:700px;">
+<img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/AI-Assisted_3.png style="width:500px;">
 
 
 ## ⚠️ Security Scenario: Privilege Escalation Detection
