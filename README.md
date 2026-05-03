@@ -1,6 +1,7 @@
 # Azure Zero Trust Landing Zone with AI-Assisted Security Operations
 
 ## TL;DR
+• Includes reusable detection library (KQL) and Infrastructure-as-Code (Bicep)
 
 I built a Zero Trust, identity-centric detection pipeline in Azure that:
 
