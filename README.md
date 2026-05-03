@@ -189,7 +189,6 @@ Prompt used:
 Output:
 
 <img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/copilot_analysis.png style="width:300px;">
-
 <img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/copilot_analysis_cont.png style="width:300px;">
 
 The analysis highlights:
