@@ -1,4 +1,4 @@
-# Azure Zero Trust Landing Zone with AI-Assisted Security Operations
+# Azure Control Plane Threat Detection
 
 ## TL;DR
 • Includes reusable detection library (KQL) and Infrastructure-as-Code (Bicep)
