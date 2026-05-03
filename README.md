@@ -283,6 +283,9 @@ These patterns are commonly used in enterprise cloud security operations.
 - Does not detect failed role assignment attempts
 - Requires proper diagnostic settings at subscription level
 - Focuses on successful role assignments (post-event detection vs prevention)
+- Baseline allowlisting for expected administrative and automated role assignments is deferred to future enhancements.
+  In production, known callers such as deployment pipelines, managed identities, policy assignments, and approved
+  administrators should be filtered or tagged to reduce noise.
 
 ## 🚀 Future Enhancements
 
