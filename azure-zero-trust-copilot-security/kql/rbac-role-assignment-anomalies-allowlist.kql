@@ -1,0 +1,10 @@
+let ExpectedCallers = dynamic([
+  "trusted-admin@domain.com",
+  "automation-spn-name"
+]);
+AzureActivity
+| where OperationNameValue has "roleAssignments"
+| where ActivityStatusValue == "Success"
+| where Caller !in (ExpectedCallers)
+| project TimeGenerated, Caller, CallerIpAddress, OperationNameValue, ActivityStatusValue, Properties
+| order by TimeGenerated desc
