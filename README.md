@@ -211,7 +211,7 @@ While Copilot correctly identifies external IP risk and privilege escalation pot
   - Change windows
   - Approved automation/service principals
 
-👉 Final decision: This highlights the role of AI as an **augmentation tool**, not a replacement for analyst                                    judgment.**Requires investigation, not immediate escalation**
+👉 Final decision: This highlights the role of AI as an **augmentation tool**, not a replacement for analyst                                    judgment. **Requires investigation, not immediate escalation**
 
 ## ⚠️ Security Scenario: Privilege Escalation Detection
 
