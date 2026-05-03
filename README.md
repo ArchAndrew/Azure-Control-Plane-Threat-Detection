@@ -179,10 +179,18 @@ Improper or malicious assignments can lead to:
 This inspection bridges detection and investigation, enabling validation of identity, scope, and privilege impact for RBAC changes.
 
 
-### 🤖 AI-Assisted Analysis (Microsoft Copilot Insight)
-<img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/AI-Assisted_3.png style="width:500px;">
+### 🤖 Copilot Deep-Dive (Analyst Interpretation)
 
-Microsoft Copilot was used to interpret the RBAC role assignment event and provide a high-level security assessment.
+In this step, Copilot is used to interpret the RBAC event and provide security context beyond raw logs.
+
+Prompt used:
+"Explain this RBAC role assignment event and identify potential risks."
+
+Output:
+
+<img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/copilot_analysis.png style="width:500px;">
+
+<img src= https://github.com/ArchAndrew/Azure-Zero-Trust-Landing-Zone-with-AI-Assisted-Security-Operations/blob/main/azure-zero-trust-copilot-security/screenshots/copilot_analysis_cont.png style="width:500px;">
 
 The analysis highlights:
 
@@ -191,6 +199,19 @@ The analysis highlights:
 - The need to validate that access is granted only to authorized identities
 
 This demonstrates how AI can assist analysts by translating raw log data into actionable security insights, improving response time and decision-making.
+
+### 🧑‍💻 Analyst Verdict
+
+While Copilot correctly identifies external IP risk and privilege escalation potential:
+
+- It does NOT validate whether the activity is expected (no baseline awareness)
+- It cannot distinguish between legitimate admin activity vs malicious use
+- It requires human validation against:
+  - Known admin accounts
+  - Change windows
+  - Approved automation/service principals
+
+👉 Final decision: **Requires investigation, not immediate escalation**
 
 ## ⚠️ Security Scenario: Privilege Escalation Detection
 
