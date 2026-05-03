@@ -1,0 +1,4 @@
+AuditLogs
+| where OperationName has_any ("Add conditional access policy", "Update conditional access policy", "Delete conditional access policy")
+| project TimeGenerated, OperationName, Result, InitiatedBy, TargetResources
+| order by TimeGenerated desc
