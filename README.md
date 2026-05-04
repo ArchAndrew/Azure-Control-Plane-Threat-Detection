@@ -4,7 +4,7 @@
 • Includes reusable detection library (KQL) and Infrastructure-as-Code (Bicep)
 
 🔎 **For architecture-level decisions (cost, DR, hybrid, governance):**  
-👉 [Jump to Enterprise Design Decisions](#enterprise-design-decisions)
+👉 [Jump to Enterprise Design Decisions](#-enterprise-design-decisions)
 
 I built a Zero Trust, identity-centric detection pipeline in Azure that:
 
