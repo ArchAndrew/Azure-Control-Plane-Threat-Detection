@@ -3,6 +3,9 @@
 ## TL;DR
 • Includes reusable detection library (KQL) and Infrastructure-as-Code (Bicep)
 
+🔎 **For architecture-level decisions (cost, DR, hybrid, governance):**  
+👉 [Jump to Enterprise Design Decisions](##enterprise-design-decisions)
+
 I built a Zero Trust, identity-centric detection pipeline in Azure that:
 
 - Detects RBAC privilege escalation events in real time
@@ -288,6 +291,138 @@ These patterns are commonly used in enterprise cloud security operations.
   In production, known callers such as deployment pipelines, managed identities, policy assignments, and approved
   administrators should be filtered or tagged to reduce noise. SEE **azure-zero-trust-copilot-security/kql/rbac-role-
   assignment-anomalies-allowlist.kql**
+
+ ## 🏢 Enterprise Design Decisions
+
+This detection pipeline is designed to simulate a real-world identity threat scenario, but production deployments require additional considerations around scale, cost, resilience, and operational context. Remember the **Design Principle:** That detection alone is insufficient, effective cloud security requires a balance of detection, prevention, governance, and cost-aware telemetry design.
+
+---
+
+### 📊 Log Analytics Architecture (Storage, Retention, Cost)
+
+This implementation uses a single Log Analytics workspace with a 30-day retention period.
+
+In production environments:
+
+- In production, I implement tiered retention to balance cost and investigative depth:
+  - **Hot (Log Analytics):** 30–90 days for active detection and investigation  
+  - **Archive / Storage:** 6–12+ months for compliance and forensics  
+- I reduce ingestion costs by filtering high-volume logs (e.g., AzureActivity, SignInLogs) using Data Collection Rules (DCRs)  
+- I prioritize retaining critical control-plane logs (RBAC, policy changes) in hot storage to maintain fast investigative query performance
+
+**Tradeoff:**  
+Longer retention improves investigative capability but significantly increases cost at scale.
+
+---
+
+### 🛡️ Resilience, DR, and Logging Redundancy
+
+This implementation assumes a single-region logging architecture.
+
+In production:
+
+- I design logging pipelines with regional redundancy to prevent loss of detection visibility during outages  
+- To ensure durability, I export critical logs to:
+  - Secondary Log Analytics workspaces  
+  - Storage accounts (immutable / long-term retention)  
+- Sentinel availability is directly tied to Log Analytics workspace availability — loss of logging equals loss of detection capability 
+
+**Design consideration:**  
+Detection pipelines should be treated as **critical infrastructure**, not optional telemetry.
+
+---
+
+### 🌐 Network Architecture & Hybrid Reality
+
+This design uses a hub-and-spoke model with private workloads.
+
+In enterprise environments:
+
+- Hybrid connectivity (VPN / ExpressRoute) introduces:
+  - On-prem identity sources (Active Directory synced via Entra ID)  
+  - Legacy systems (e.g., SharePoint on-prem, internal admin tooling)  
+  - In hybrid environments, I assume RBAC actions originate from multiple trust boundaries:”:
+  - Internal corporate IP ranges  
+  - Jump hosts or bastion systems  
+  - On-prem administrative networks  
+
+**Implication:**  
+This design intentionally avoids relying on IP-based detection alone, prioritizing identity and behavioral context  
+Effective detection requires **identity context + behavioral awareness**, not just network indicators.
+
+---
+
+### ⚖️ Legitimate vs Suspicious Privilege Escalation
+
+RBAC role assignments are not inherently malicious.
+
+Legitimate scenarios include:
+
+- Deployment pipelines assigning roles during provisioning  
+- Managed identities receiving access to resources  
+- Privileged Identity Management (PIM) activations  
+- Break-glass or emergency administrative access  
+
+To reduce false positives, I incorporate:
+
+- **Allowlisting for known trusted identities**  
+- Filtering for expected automation and administrative patterns  
+
+In production, I integrate this detection with:
+
+- Change window validation  
+- Identity tagging (admin vs service principal vs automation)  
+- Behavioral baselining  
+
+---
+
+### 🔐 Identity Governance & Access Control Integration
+
+This implementation focuses on detection, but prevention and governance are equally critical.
+
+In production, I integrate this detection with:
+
+- **Microsoft Entra PIM (Privileged Identity Management)**  
+  → Just-in-time access, approval workflows, and auditability  
+
+- **Access Packages (Identity Governance)**  
+  → Controlled and time-bound access provisioning  
+
+- **Permissions Management (CIEM)**  
+  → Visibility into excessive permissions and least-privilege gaps  
+
+**Outcome:**  
+Detection + Governance reduces both **risk exposure** and **alert fatigue**. The goal is to move from reactive detection to proactive access governance.
+
+---
+
+### 💰 Cost Considerations
+
+I design detection pipelines to balance visibility with operational cost.
+
+Primary cost drivers:
+- Log ingestion volume  
+- Retention duration  
+- Query execution frequency  
+
+To optimize cost, I:
+- Filter noisy logs at ingestion (DCRs)  
+- Use scheduled analytics rules instead of continuous queries  
+- Archive infrequently accessed data  
+
+---
+
+### 🎯 Summary
+
+This detection pipeline demonstrates identity-centric threat detection in the Azure control plane.
+
+A production-ready implementation requires:
+- Cost-aware logging strategy  
+- Resilient and redundant telemetry pipelines  
+- Context-aware detection tuning (noise reduction)  
+- Integration with identity governance controls  
+
+These considerations ensure detections remain both **effective** and **operationally sustainable** in enterprise environments.
   
 ## 🚀 Future Enhancements
 
