@@ -437,4 +437,4 @@ These considerations ensure detections remain both **effective** and **operation
 
 
 
-thee_architect_was_here
+_Architecture by: thee_architect_was_here_
